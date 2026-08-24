@@ -9,6 +9,8 @@
 - Presenter assets exist for Siobhan, Gemma, and Claudia.
 - Brand logos, an opening jingle, and four Grok-generated 9:16 reference clips
   exist and are preserved.
+- A red studio reference and a branded 9:16 card background are preserved as
+  reusable visual inputs.
 - A prior 1080x1920 offline render proves the basic renderer can complete.
 - Hermes profiles exist for operator, researcher, strategist, writer, and
   reviewer.
