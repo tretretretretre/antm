@@ -1,0 +1,53 @@
+# Secrets and local credentials
+.env
+.env.*
+!.env.example
+config/.env
+**/auth.json
+*.key
+*.pem
+*.p12
+*.pfx
+
+# Generated content and runtime state
+output/
+inbox/hero-clips/
+automation/daily/*
+!automation/daily/README.md
+*.log
+*.pid
+*.tmp
+*.bak
+
+# Local application/editor state
+.claude/settings.local.json
+.vscode/
+.idea/
+.DS_Store
+Thumbs.db
+
+# Python
+__pycache__/
+*.py[cod]
+.pytest_cache/
+.mypy_cache/
+.ruff_cache/
+.coverage
+htmlcov/
+.venv/
+venv/
+
+# Node/build artifacts
+node_modules/
+dist/
+build/
+
+# Local databases and service volumes
+*.sqlite
+*.sqlite3
+*.db
+compose/data/
+
+# Generated handoff archives
+*.zip
+*.tar.gz

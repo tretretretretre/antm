@@ -1,0 +1,14 @@
+[Unit]
+Description=AINTM host runner (pipeline stage bridge for n8n)
+After=network.target
+
+[Service]
+WorkingDirectory=/home/tre/dev/antm
+EnvironmentFile=/home/tre/dev/antm/config/.env
+Environment=PATH=/home/tre/.local/bin:/usr/local/bin:/usr/bin:/bin
+ExecStart=/usr/bin/python3 /home/tre/dev/antm/scripts/host_runner.py
+Restart=always
+RestartSec=5
+
+[Install]
+WantedBy=default.target

@@ -1,0 +1,137 @@
+name: aintm
+
+services:
+  n8n:
+    image: docker.n8n.io/n8nio/n8n:latest
+    container_name: aintm-n8n
+    restart: always
+    ports:
+      - "127.0.0.1:5678:5678"
+    extra_hosts:
+      - "host.docker.internal:host-gateway"
+    environment:
+      - GENERIC_TIMEZONE=America/Toronto
+      - TZ=America/Toronto
+      - AINTM_TG_CHAT_ID=7841368395
+      - N8N_SECURE_COOKIE=false
+      - N8N_DIAGNOSTICS_ENABLED=false
+      - EXECUTIONS_DATA_PRUNE=true
+      - EXECUTIONS_DATA_MAX_AGE=168
+    volumes:
+      - n8n_data:/home/node/.n8n
+      - /home/tre/dev/antm/assets:/data/assets
+      - /home/tre/dev/antm/inbox:/data/inbox
+      - /home/tre/dev/antm/output:/data/output
+      - /home/tre/dev/antm/scripts:/data/scripts
+
+  postiz:
+    image: ghcr.io/gitroomhq/postiz-app:latest
+    container_name: aintm-postiz
+    restart: always
+    ports:
+      - "127.0.0.1:5000:5000"
+    environment:
+      MAIN_URL: "http://localhost:5000"
+      FRONTEND_URL: "http://localhost:5000"
+      NEXT_PUBLIC_BACKEND_URL: "http://localhost:5000/api"
+      JWT_SECRET: "39f55b2890db12d43ec095a0baaf70114ec95818b8792bfe92c75cfcbd48068a"
+      DATABASE_URL: "postgresql://postiz:postiz-local-pw@postiz-postgres:5432/postiz"
+      REDIS_URL: "redis://postiz-redis:6379"
+      BACKEND_INTERNAL_URL: "http://localhost:3000"
+      TEMPORAL_ADDRESS: "temporal:7233"
+      RUN_CRON: "true"
+      DISABLE_REGISTRATION: "false"
+      IS_GENERAL: "true"
+      STORAGE_PROVIDER: "local"
+      UPLOAD_DIRECTORY: "/uploads"
+      NEXT_PUBLIC_UPLOAD_DIRECTORY: "/uploads"
+    volumes:
+      - postiz_config:/config
+      - postiz_uploads:/uploads
+    depends_on:
+      postiz-postgres:
+        condition: service_healthy
+      postiz-redis:
+        condition: service_healthy
+      temporal:
+        condition: service_healthy
+
+  # Temporal workflow engine — required by postiz-app since mid-2026 images.
+  # NOTE: Postiz backend also wants Elasticsearch visibility (>3 Text search
+  # attributes), which this machine cannot handle — deliberately NOT included.
+  # Postiz signup stays broken until a lighter path is chosen (see plan).
+  temporal:
+    image: temporalio/auto-setup:1.28.1
+    container_name: aintm-temporal
+    restart: always
+    environment:
+      - DB=postgres12
+      - DB_PORT=5432
+      - POSTGRES_USER=temporal
+      - POSTGRES_PWD=temporal
+      - POSTGRES_SEEDS=temporal-postgres
+      - DYNAMIC_CONFIG_FILE_PATH=config/dynamicconfig/development-sql.yaml
+      - ENABLE_ES=false
+      - TEMPORAL_NAMESPACE=default
+    volumes:
+      - ./dynamicconfig:/etc/temporal/config/dynamicconfig
+    depends_on:
+      temporal-postgres:
+        condition: service_healthy
+    healthcheck:
+      test: ["CMD", "temporal", "operator", "cluster", "health", "--address", "temporal:7233"]
+      interval: 10s
+      timeout: 5s
+      retries: 10
+      start_period: 30s
+
+  temporal-postgres:
+    image: postgres:16-alpine
+    container_name: aintm-temporal-db
+    restart: always
+    environment:
+      POSTGRES_USER: temporal
+      POSTGRES_PASSWORD: temporal
+    volumes:
+      - temporal_db:/var/lib/postgresql/data
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U temporal"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+
+  postiz-postgres:
+    image: postgres:17-alpine
+    container_name: aintm-postiz-db
+    restart: always
+    environment:
+      POSTGRES_USER: postiz
+      POSTGRES_PASSWORD: postiz-local-pw
+      POSTGRES_DB: postiz
+    volumes:
+      - postiz_db:/var/lib/postgresql/data
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U postiz -d postiz"]
+      interval: 10s
+      timeout: 3s
+      retries: 5
+
+  postiz-redis:
+    image: redis:7-alpine
+    container_name: aintm-postiz-redis
+    restart: always
+    volumes:
+      - postiz_redis:/data
+    healthcheck:
+      test: ["CMD", "redis-cli", "ping"]
+      interval: 10s
+      timeout: 3s
+      retries: 5
+
+volumes:
+  n8n_data:
+  postiz_config:
+  postiz_uploads:
+  postiz_db:
+  postiz_redis:
+  temporal_db:

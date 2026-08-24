@@ -1,0 +1,41 @@
+# AINTM news ingestion sources — edit freely; pipeline reads this at each run
+rss:
+  - name: OpenAI Blog
+    url: https://openai.com/news/rss.xml
+  - name: Ars Technica AI
+    url: https://arstechnica.com/ai/feed/
+  - name: Google AI Blog
+    url: https://blog.google/technology/ai/rss/
+  - name: DeepMind Blog
+    url: https://deepmind.google/blog/rss.xml
+  - name: The Decoder
+    url: https://the-decoder.com/feed/
+  - name: TechCrunch AI
+    url: https://techcrunch.com/category/artificial-intelligence/feed/
+  - name: The Verge AI
+    url: https://www.theverge.com/rss/ai-artificial-intelligence/index.xml
+  - name: VentureBeat AI
+    url: https://venturebeat.com/category/ai/feed/
+  - name: MIT Tech Review AI
+    url: https://www.technologyreview.com/topic/artificial-intelligence/feed
+  - name: Hugging Face Blog
+    url: https://huggingface.co/blog/feed.xml
+
+hackernews:
+  # top stories filtered by AI keywords, min score
+  min_score: 80
+  keywords: [AI, LLM, GPT, Claude, Gemini, OpenAI, Anthropic, model, agent, diffusion, transformer]
+
+arxiv:
+  # daily cs.AI / cs.LG highlights — only picked up when a paper is going viral on HN/X
+  categories: [cs.AI, cs.LG, cs.CL]
+  max_per_day: 2
+
+youtube_transcripts:
+  # channels whose new uploads get transcribed via yt-dlp for source material
+  # (transcripts are SOURCE material to reword/summarize — never re-post their content)
+  channels:
+    - https://www.youtube.com/@aiexplained-official
+    - https://www.youtube.com/@matthew_berman
+    - https://www.youtube.com/@TheAIGRID
+    - https://www.youtube.com/@WesRoth
