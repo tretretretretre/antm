@@ -1,30 +1,32 @@
-# AINTM character kit — FILL IN: names, personalities, and drop 3-5 reference
-# images into each girl's folder (front-facing, neutral + smiling, consistent look).
-# Voice = edge-tts voice id (free, unlimited). Preview voices:  edge-tts --list-voices
-# Rotation: pipeline cycles girl1 -> girl2 -> girl3 by day, tracks per-girl growth.
+# Canonical daily rotation: Siobhan -> Gemma -> Claudia.
+# The legacy girl1/girl2/girl3 keys are retained for the current renderer.
 
 girl1:
-  name: "CLaudia"            
-  voice: en-US-AvaNeural        
-  personality: "Sweet and calm, confident and articulate. The Blonde:Gets funny when shes excited about breaking-news because she tries to contain her own excitement"     
-  images: assets/characters/girl1-Claudia 
+  name: "Siobhan"
+  voice: en-GB-SoniaNeural
+  personality: >-
+    Sassy, cool, confident, captivating, quirky, and sharply funny without
+    trying too hard.
+  images: assets/characters/girl3-Siobhan
 
 girl2:
-  name: "Jemma"
-  voice: en-US-JennyNeural      
-  personality: "Personable and genuinely very intelligent with a sassy sarcastic side to her. The Brunette: if people dont keep up with her brilliantly crafted dialogues"     
+  name: "Gemma"
+  voice: en-US-JennyNeural
+  personality: >-
+    Personable and highly intelligent, with a dry, sarcastic edge and precise
+    explanations.
   images: assets/characters/girl2-Gemma
 
 girl3:
-  name: "Siobhan"
-  voice: en-GB-SoniaNeural      
-  personality: "Sassy and cool confident. Captivating and always interesting, quirky, weird and too cool to care what anyone thinks of her quirks and humour"     
-  images: assets/characters/girl3-Sioabhan
+  name: "Claudia"
+  voice: en-US-AvaNeural
+  personality: >-
+    Sweet, calm, confident, and articulate; visibly excited by major breaking
+    news even when she tries to contain it.
+  images: assets/characters/girl1-Claudia
 
 brand:
   show_name: "A.I.'s Next Top Models"
-  tagline: "Follow for daily AI news"
-  logo: assets/brand/logo.png            # DROP YOUR LOGO FILE HERE (PNG w/ transparency)
-  intro_sting: assets/audio/intro.wav    # 2-3s  — you are creating this
-  outro_jingle: assets/audio/outro.wav   # 3-5s  — you are creating this
-  music_beds: assets/audio/beds/         # 60s seamless loops — you are creating theseThat when you come across T
+  tagline: "Follow for daily AI intelligence"
+  logo: assets/brand/logo-square.png
+  opening_jingle: assets/audio/opening-jingles/Opening-jingle.mp3

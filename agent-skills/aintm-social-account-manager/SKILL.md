@@ -1,6 +1,6 @@
 ---
 name: aintm-social-account-manager
-description: Use when auditing, managing, or planning weekly growth for AINTM Instagram, TikTok, or YouTube accounts, including bios, hooks, visuals, captions, posting strategy, engagement, and prompt carousels.
+description: Use when auditing, managing, or planning growth for AINTM X, Instagram, or YouTube accounts, including hooks, visuals, captions, posting strategy, engagement, and carousels.
 ---
 
 # AINTM Social Account Manager
@@ -40,24 +40,26 @@ Week 1 establishes the baseline. Begin weekly audits in Week 2. Audit only data 
 - Owner actions requiring account access or brand decisions
 - Measurement sheet fields needed for the next audit
 
-## Prompt-carousel quality gate
+## Carousel quality gate
 
-Use 4:5 portrait for Instagram feed carousels unless current platform requirements say otherwise. A publishable carousel must include:
+Use 9:16 portrait by default unless a current platform requirement demands
+another ratio. A publishable carousel must include:
 
 1. an outcome-led cover;
 2. audience/problem context;
-3. the exact tested prompt;
-4. model, version, test date, and relevant settings;
-5. real input and legible example output;
-6. explanation of why it works;
-7. limitation, failure case, or correction;
-8. one specific save/share/follow action.
+3. verified evidence or a tested example;
+4. relevant model/version/date when the content concerns a model or prompt;
+5. a legible original explanation or demonstration;
+6. the audience payoff;
+7. a limitation, uncertainty, or correction when relevant;
+8. one specific save, share, or follow action.
 
 Test the prompt before publishing. Never promise reproducibility without disclosing material inputs or settings. Treat competitor posts as research signals only; create an original test, result, explanation, design, and wording.
 
 ## Decision rules
 
-- Reels/Shorts usually test discovery; carousels usually test saves, shares, and authority. Confirm that pattern with this account's data.
+- Reels/Shorts usually test discovery; carousels usually test saves, shares,
+  and authority. Confirm that pattern with each account's data.
 - Do not change positioning, format, hook, visual system, cadence, and CTA simultaneously if the goal is causal learning.
 - Small samples are directional. Do not declare a winner from one post; repeat across comparable posts.
 - If key analytics are missing, provide a provisional audit plus the exact export or screenshots needed—not invented precision.

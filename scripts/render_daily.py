@@ -23,7 +23,23 @@ import edge_tts
 BASE = Path(__file__).resolve().parent.parent
 BRAND_BG = "0x0f0f1a"  # deep navy fallback card color
 W, H, FPS = 1080, 1920, 30
-GEMINI_MODEL = "gemini-2.5-flash-image"
+GEMINI_MODEL = os.environ.get("AINTM_IMAGE_MODEL", "gemini-3.1-flash-image")
+
+
+def production_assets() -> dict[str, Path]:
+    return {
+        "brand": BASE / "assets" / "brand" / "logo-square.png",
+        "intro": (BASE / "assets" / "audio" / "opening-jingles" /
+                  "Opening-jingle.mp3"),
+        "outro": BASE / "assets" / "audio" / "outro.wav",
+    }
+
+
+def presenter_images_dir(episode: dict) -> Path:
+    configured = episode.get("presenter_images")
+    if configured:
+        return BASE / configured
+    return BASE / "assets" / "characters" / episode["girl"]
 
 
 def run(cmd, **kw):
@@ -124,9 +140,10 @@ def fallback_card(text: str, out_png: Path):
 
 # ---------- assembly ----------
 def build_video(images, voice_mp3, ass_file, ep, workdir: Path, out_mp4: Path):
-    brand = BASE / "assets" / "brand" / "logo.png"
-    intro = BASE / "assets" / "audio" / "intro.wav"
-    outro = BASE / "assets" / "audio" / "outro.wav"
+    assets = production_assets()
+    brand = assets["brand"]
+    intro = assets["intro"]
+    outro = assets["outro"]
     beds = sorted((BASE / "assets" / "audio" / "beds").glob("*")) if \
         (BASE / "assets" / "audio" / "beds").exists() else []
 
@@ -208,7 +225,7 @@ def main():
     print(f"voice: {ffprobe_dur(voice_mp3):.1f}s, {len(words)} words")
 
     # 2. images (first = anchor shot with the girl's reference images)
-    girl_dir = BASE / "assets" / "characters" / ep["girl"]
+    girl_dir = presenter_images_dir(ep)
     refs = sorted([p for p in girl_dir.glob("*") if p.suffix.lower() in
                    (".png", ".jpg", ".jpeg")])
     images = []
@@ -224,7 +241,7 @@ def main():
         images.append(img)
 
     # 3. captions
-    intro = BASE / "assets" / "audio" / "intro.wav"
+    intro = production_assets()["intro"]
     intro_d = ffprobe_dur(intro) if intro.exists() else 0.0
     ass_file = workdir / "captions.ass"
     write_captions(words, intro_d, ass_file)

@@ -7,20 +7,24 @@ description: Use when researching or selecting daily AI news, model releases, to
 
 ## Purpose
 
-Select a timely, provable AI story that is useful to builders. Treat popularity as a measured signal, not a guess. Research comes before scripting.
+Select a timely, provable AI opportunity with demonstrated social attention and
+follower-growth potential. Treat popularity as a measured signal, not a guess.
+Research comes before scripting.
 
 ## Required workflow
 
 1. State the current date, timezone, audience, target platforms, and research window. If live research is unavailable, stop and label the result a research plan—not today's winner.
 2. Gather candidates from primary sources first: official announcements, documentation, release notes, repositories, papers, or named company spokespeople.
 3. Gather independent attention signals. Prefer measurable data such as publication velocity, cross-source coverage, search interest, view velocity, comments, saves, shares, or community discussion. Record unavailable metrics as `unknown`; never invent them.
-4. Use benchmark creators—including Nate Herk, Chase AI, and Leon van Zyl—as topic and audience-question signals. A competitor transcript is never sufficient evidence.
+4. Use tracked creators and accounts as topic, format, and audience-question
+   signals. A competitor transcript is never sufficient evidence.
 5. Cluster duplicate coverage into one story. Separate the original event date from article and repost dates.
 6. Score each candidate from 0–5 on:
    - recency
    - verified attention velocity
    - independent confirmation
-   - builder usefulness
+   - follower-growth potential
+   - audience payoff
    - novelty
    - demonstration/visual potential
    - evidence quality
@@ -35,7 +39,8 @@ Return:
 1. **Research scope and data limits.**
 2. **Ranked candidate table** with topic, event time, primary source, attention signals, score, confidence, and risks.
 3. **Winner evidence pack** with claim-by-claim source links, what is confirmed, what is inferred, and what must not be claimed.
-4. **Original AINTM angle**: audience problem, useful takeaway, presenter fit, content format, and why it deserves attention today.
+4. **Original AINTM angle**: audience problem, useful takeaway, presenter fit,
+   content format, growth hypothesis, and why it deserves attention today.
 5. **Three original hooks** and one factual 30–45 second script only if confidence is high enough.
 6. **Research log** listing consulted sources and timestamps.
 

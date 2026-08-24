@@ -1,4 +1,5 @@
-# AINTM news ingestion sources — edit freely; pipeline reads this at each run
+# Supporting discovery sources for the legacy ingestion scaffold.
+# These feeds must not outrank X, Instagram, or YouTube social evidence.
 rss:
   - name: OpenAI Blog
     url: https://openai.com/news/rss.xml
@@ -22,7 +23,7 @@ rss:
     url: https://huggingface.co/blog/feed.xml
 
 hackernews:
-  # top stories filtered by AI keywords, min score
+  # Supporting developer-attention signal only.
   min_score: 80
   keywords: [AI, LLM, GPT, Claude, Gemini, OpenAI, Anthropic, model, agent, diffusion, transformer]
 

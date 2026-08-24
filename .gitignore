@@ -20,7 +20,6 @@ automation/daily/*
 *.bak
 
 # Local application/editor state
-.claude/settings.local.json
 .vscode/
 .idea/
 .DS_Store

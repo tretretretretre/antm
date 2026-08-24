@@ -1,7 +1,6 @@
 #!/usr/bin/env python3
-"""AINTM rank + scriptwrite: feed candidate stories to headless Claude (Max sub,
-$0 API cost) to pick the top stories and write the day's video script in the
-rotating character's voice.
+"""AINTM rank + script writer: use Grok for social-native topic selection and
+write the daily lead-video script in the rotating presenter's voice.
 
 Usage: rank_and_script.py --candidates output/candidates.json --out output/episode.json
 Rotation state lives in output/rotation.json (girl1 -> girl2 -> girl3 -> ...).
@@ -27,9 +26,10 @@ Personality: {personality}
 
 Below are today's candidate stories (JSON). Do all of the following:
 
-1. RANK: pick the {n_stories} stories with the highest viral potential for a
-   general TikTok/Reels/Shorts audience (novelty, stakes, "wait, what?" factor,
-   visual potential). Ignore incremental/enterprise news unless huge.
+1. RANK: pick the {n_stories} stories with the strongest evidence-backed
+   follower-growth potential for an X, Instagram Reels, and YouTube Shorts
+   audience. Favor novelty, stakes, visual potential, and a clear audience
+   payoff. Ignore incremental news unless attention signals justify it.
 2. VERIFY TONE: only claims supported by the provided title/summary — never
    invent numbers, quotes, or details not present in the source material.
 3. SCRIPT: write one 30-45 second spoken script (75-110 words) covering the top
@@ -88,16 +88,25 @@ def main():
                            n_stories=args.n_stories,
                            stories=json.dumps(stories, indent=1))
 
-    r = subprocess.run(["claude", "-p", "--output-format", "text"],
-                       input=prompt, capture_output=True, text=True, timeout=600)
+    r = subprocess.run(
+        ["grok", "--single", prompt, "--model", "grok-4.6",
+         "--reasoning-effort", "medium", "--output-format", "plain",
+         "--no-subagents", "--disable-web-search",
+         "--permission-mode", "dontAsk"],
+        capture_output=True, text=True, timeout=600,
+    )
     if r.returncode != 0:
-        sys.exit(f"claude failed: {r.stderr[:500]}")
+        sys.exit(f"Grok writer failed: {r.stderr[:500]}")
 
     raw = r.stdout.strip()
     if raw.startswith("```"):
         raw = raw.split("```")[1].removeprefix("json").strip()
-    episode = json.loads(raw)  # hard-fail loudly if Claude returned non-JSON
+    episode = json.loads(raw)  # hard-fail loudly on invalid structured output
 
+    episode["presenter_id"] = girl_key
+    episode["presenter_name"] = girl["name"]
+    episode["presenter_images"] = girl["images"]
+    # Legacy aliases retained until all downstream consumers migrate.
     episode["girl"] = girl_key
     episode["girl_name"] = girl["name"]
     episode["voice"] = girl["voice"]

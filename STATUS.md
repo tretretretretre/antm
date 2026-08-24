@@ -1,29 +1,52 @@
 # AINTM Status
 
-## Completed
+**Updated:** 2026-08-24
 
-- Project-local Git repository initialized; secrets, generated output, daily cron artifacts, and archives are ignored.
-- Bots created: `operator`, `researcher`, `strategist`, `writer`, `reviewer`.
-- Models assigned by role: Grok 4.6 for research/writing; GPT-5.6 Sol for operations/strategy/review.
-- Daily cron chain created from 06:45 through 14:15 America/Toronto; six recurring jobs are active across five specialist Bots plus the default owner brief.
-- Telegram morning readiness report and afternoon owner brief configured.
-- Durable Week-1 plan and tools/abilities list created.
-- Unattended jobs are restricted from publishing, spending, connecting accounts, deleting files, or changing production code.
+## Verified working material
 
-## Running
+- The repository contains reusable Python/FFmpeg ingestion, scripting,
+  rendering, approval, and publishing scaffolding.
+- Presenter assets exist for Siobhan, Gemma, and Claudia.
+- Brand logos, an opening jingle, and four Grok-generated 9:16 reference clips
+  exist and are preserved.
+- A prior 1080x1920 offline render proves the basic renderer can complete.
+- Hermes profiles exist for operator, researcher, strategist, writer, and
+  reviewer.
 
-- The first Researcher cron execution completed successfully and created `automation/daily/research-2026-08-22.md` plus `latest-research.md`.
-- The remaining scheduled chain starts with the Operator readiness report at 06:45, then Strategist, Writer, Reviewer, and the owner brief.
-- The first research run found a valid primary-source evidence pack; YouTube metadata failed in that unattended run and is now a measured tooling gap to investigate.
+## Corrected in the current cleanup
 
-## Next five tasks
+- The 690-line legacy handoff was replaced by the concise canonical direction.
+- `AGENTS.md` now requires every repository agent to follow that direction.
+- Claude was removed from the tracked writer and n8n workflow.
+- Model, effort, helper, Mixture-of-Agents, and media routing now have one
+  machine-readable source at `config/model-routing.yml`.
+- Presenter rotation and asset paths are Siobhan -> Gemma -> Claudia.
+- The renderer now uses the existing logo and opening jingle paths and defaults
+  to `gemini-3.1-flash-image`.
+- Dated Week-1/RSS-first plans were replaced by current operating and research
+  documents.
 
-1. Verify the first complete cron chain and inspect all generated artifacts.
-2. Tune research sources, evidence standards, format choices, and job prompts.
-3. Add Python dependency/test setup and machine-validated schemas.
-4. Repair character/logo/voice paths and the early story-consumption bug with tests.
-5. Produce one branded offline package for owner review—no publishing.
+## Known gaps
 
-## Waiting for owner
+- The current Python ingestion path is still RSS/Hacker News scaffolding; the
+  social collector/database does not yet exist.
+- Carousel rendering and the weekly long-video workflow do not yet exist.
+- The existing renderer still uses edge TTS and still-image FFmpeg assembly.
+- The publishing stack is unverified and remains outside the first milestone.
+- Hermes runtime profiles, helper models, Mixture-of-Agents preset, and
+  scheduled prompts now match the routing direction; the gateway remains
+  stopped and the owner brief remains paused.
+- A minimal Python dependency manifest and four regression tests now exist;
+  broader artifact schemas and integration coverage are incomplete.
+- Credential-like literals were present in the initial Git commit. The tracked
+  Compose file is clean now, but those old values must be rotated; history
+  rewriting is a separate owner-approved operation.
 
-Presenter/brand decisions, test-video feedback, NotebookLM authentication decision, account OAuth, paid-tool approvals, and publication approval.
+## Next work
+
+1. Define the social observation/research/performance schema and SQLite store.
+2. Implement primary X, Instagram, and YouTube collection adapters.
+3. Define validated research, strategy, script, carousel, review, and approval
+   artifact contracts.
+4. Add reusable 9:16 carousel rendering and the weekly long-video path.
+5. Produce the first owner-approved offline daily package.

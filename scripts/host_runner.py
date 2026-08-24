@@ -1,7 +1,7 @@
 #!/usr/bin/env python3
 """AINTM host runner: tiny localhost HTTP bridge so the n8n container can run
-pipeline stages on the host (where python deps, ffmpeg, claude CLI, and
-GEMINI_API_KEY live).
+pipeline stages on the host (where Python dependencies, FFmpeg, model CLIs,
+and generation credentials live).
 
 Listens on 127.0.0.1:8484 (reachable from containers via host-gateway).
 POST /run/<stage>  -> runs the stage synchronously, returns {ok, stdout, stderr}.

@@ -1,0 +1,106 @@
+version: 1
+updated: 2026-08-24
+
+policy:
+  objective: least_expensive_capable_model
+  default_effort: low
+  escalation:
+    medium: synthesis_drafting_or_ordinary_strategy
+    high: research_judgment_final_review_or_major_strategy
+    xhigh_max: manual_only
+  job_overrides: must_be_documented
+  mixture_of_agents: disabled_by_default
+  prohibited_runtime_models:
+    - claude
+    - anthropic/*
+
+profiles:
+  default:
+    model: gpt-5.6-sol
+    provider: openai-codex
+    effort: low
+    responsibility: owner_orchestration
+  operator:
+    model: gpt-5.6-sol
+    provider: openai-codex
+    effort: low
+    responsibility: readiness_scheduling_and_blockers
+  researcher:
+    model: grok-4.6
+    provider: xai-oauth
+    effort: high
+    responsibility: x_native_discovery_social_evidence_and_verification
+  strategist:
+    model: gpt-5.6-sol
+    provider: openai-codex
+    effort: medium
+    responsibility: opportunity_format_and_experiment_selection
+  writer:
+    model: grok-4.6
+    provider: xai-oauth
+    effort: medium
+    responsibility: social_scripts_and_carousel_manifests
+  reviewer:
+    model: gpt-5.6-sol
+    provider: openai-codex
+    effort: high
+    responsibility: facts_originality_brand_quality_and_safety
+
+auxiliary:
+  vision:
+    model: gemini-3.7-flash
+    effort: medium
+  web_extract:
+    model: gemini-3.5-flash-lite
+    effort: low
+  compression:
+    model: gemini-3.5-flash-lite
+    effort: low
+  skills_hub:
+    model: gemini-3.5-flash-lite
+    effort: low
+  approval:
+    model: gpt-5.6-sol
+    effort: medium
+  mcp_routing:
+    model: gpt-5.6-terra
+    effort: low
+  title_generation:
+    model: gemini-3.5-flash-lite
+    effort: low
+  review:
+    model: gpt-5.6-sol
+    effort: high
+  curator:
+    model: gpt-5.6-terra
+    effort: medium
+
+mixture_of_agents:
+  enabled: false
+  presets:
+    critical_decision:
+      aggregator:
+        model: gpt-5.6-sol
+        effort: high
+      references:
+        - model: grok-4.6
+          effort: high
+        - model: gemini-3.7-flash
+          effort: medium
+      allowed_for:
+        - major_campaign_strategy
+        - disputed_factual_review
+        - consequential_architecture
+
+generation:
+  image_default: gemini-3.1-flash-image
+  image_complex_layout: gemini-3-pro-image
+  image_premium_alternative: gpt-image-2
+  image_social_reference: grok-imagine-image-2.0
+  video_default: gemini-omni-flash
+  video_efficient: veo-3.1-lite-generate-preview
+  video_hero: veo-3.1-generate-preview
+  video_social_reference: grok-imagine-video-1.5
+  voice_preview: edge-tts
+  voice_final: xai-tts
+  voice_experiment: gemini-3.1-flash-tts-preview

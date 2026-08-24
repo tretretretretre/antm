@@ -27,7 +27,7 @@
         "url": "http://host.docker.internal:8484/run/script",
         "options": { "timeout": 700000 }
       },
-      "name": "Rank + write script (Claude)",
+      "name": "Rank + write script (Grok)",
       "type": "n8n-nodes-base.httpRequest",
       "typeVersion": 4.2,
       "position": [440, 0]
@@ -166,8 +166,8 @@
   ],
   "connections": {
     "Every day 06:00": { "main": [[{ "node": "Ingest news", "type": "main", "index": 0 }]] },
-    "Ingest news": { "main": [[{ "node": "Rank + write script (Claude)", "type": "main", "index": 0 }]] },
-    "Rank + write script (Claude)": { "main": [[{ "node": "Load episode", "type": "main", "index": 0 }]] },
+    "Ingest news": { "main": [[{ "node": "Rank + write script (Grok)", "type": "main", "index": 0 }]] },
+    "Rank + write script (Grok)": { "main": [[{ "node": "Load episode", "type": "main", "index": 0 }]] },
     "Load episode": { "main": [[{ "node": "Approve script?", "type": "main", "index": 0 }]] },
     "Approve script?": { "main": [[{ "node": "Script approved?", "type": "main", "index": 0 }]] },
     "Script approved?": { "main": [[{ "node": "Render video", "type": "main", "index": 0 }], []] },
